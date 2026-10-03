@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept for Excel Filtration - Client & Plant Maintenance Portal</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',Arial,Helvetica,sans-serif; background:#0b1220; color:#e7eef5; }
+  .badge-bar { background:linear-gradient(90deg,#0f766e,#0e7490); color:#fff; text-align:center; padding:10px 16px; font-size:13px; letter-spacing:.4px; }
+  .badge-bar strong { letter-spacing:1px; }
+  .stage { max-width:1080px; margin:0 auto; padding:28px 20px 60px; }
+  .caption { text-align:center; color:#8fa3b8; font-size:13px; margin-bottom:18px; }
+  .caption h1 { color:#fff; font-size:22px; margin-bottom:6px; }
+  /* browser chrome */
+  .chrome { background:#1a2436; border-radius:12px 12px 0 0; padding:10px 14px; display:flex; align-items:center; gap:10px; border:1px solid #2a3a52; border-bottom:0; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .urlbar { flex:1; background:#0d1526; border-radius:8px; padding:7px 14px; font-size:12.5px; color:#9fb3c8; display:flex; align-items:center; gap:8px; }
+  .urlbar .lock { color:#34d399; font-size:11px; }
+  /* app window */
+  .app { background:#0d1526; border:1px solid #2a3a52; border-top:0; border-radius:0 0 12px 12px; overflow:hidden; }
+  .topnav { background:#0f1b30; padding:14px 22px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #22314a; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:700; font-size:15.5px; color:#fff; }
+  .brand .drop { width:26px; height:26px; border-radius:7px; background:linear-gradient(135deg,#06b6d4,#0e7490); display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .brand small { display:block; font-weight:400; font-size:10.5px; color:#7f95ad; letter-spacing:.5px; }
+  .user { display:flex; align-items:center; gap:10px; font-size:12.5px; color:#9fb3c8; }
+  .avatar { width:30px; height:30px; border-radius:50%; background:#1e3a5f; display:flex; align-items:center; justify-content:center; font-size:12px; color:#bae6fd; font-weight:700; }
+  .layout { display:flex; }
+  .side { width:200px; background:#0f1b30; border-right:1px solid #22314a; padding:18px 0; flex-shrink:0; }
+  .side a { display:flex; align-items:center; gap:10px; padding:10px 18px; color:#9fb3c8; text-decoration:none; font-size:13px; }
+  .side a.on { background:#12233d; color:#fff; border-right:3px solid #06b6d4; }
+  .side .ic { width:16px; text-align:center; opacity:.85; }
+  .main { flex:1; padding:20px 22px; min-width:0; }
+  .greet { font-size:16px; color:#fff; font-weight:700; margin-bottom:2px; }
+  .sub { font-size:12px; color:#7f95ad; margin-bottom:16px; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+  .card { background:#12233d; border:1px solid #22314a; border-radius:10px; padding:14px 16px; }
+  .card .lbl { font-size:11px; color:#7f95ad; letter-spacing:.6px; text-transform:uppercase; margin-bottom:6px; }
+  .card .val { font-size:20px; font-weight:700; color:#fff; }
+  .card .meta { font-size:11px; margin-top:5px; }
+  .ok { color:#34d399; } .warn { color:#fbbf24; } .info { color:#7dd3fc; }
+  .panel { background:#12233d; border:1px solid #22314a; border-radius:10px; padding:16px 18px; margin-bottom:14px; }
+  .panel h3 { font-size:13.5px; color:#fff; margin-bottom:12px; }
+  .panel h3 span { float:right; font-size:11px; color:#7f95ad; font-weight:400; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; color:#7f95ad; font-weight:600; padding:8px 10px; border-bottom:1px solid #22314a; font-size:11px; text-transform:uppercase; letter-spacing:.5px; }
+  td { padding:9px 10px; border-bottom:1px solid #1b2a41; color:#c9d7e4; }
+  tr:last-child td { border-bottom:0; }
+  .chip { display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-weight:600; }
+  .chip.ok { background:#052e22; color:#34d399; }
+  .chip.warn { background:#33270a; color:#fbbf24; }
+  .chip.info { background:#0a2740; color:#7dd3fc; }
+  .btn { display:inline-block; background:#0891b2; color:#fff; font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:6px; text-decoration:none; }
+  .timeline { display:flex; gap:0; margin-top:4px; }
+  .tl-item { flex:1; text-align:center; position:relative; padding-top:16px; }
+  .tl-item::before { content:''; position:absolute; top:0; left:50%; width:12px; height:12px; border-radius:50%; background:#1b2a41; border:2px solid #334d6e; transform:translateX(-50%); }
+  .tl-item.done::before { background:#06b6d4; border-color:#06b6d4; }
+  .tl-item::after { content:''; position:absolute; top:5px; left:0; width:100%; height:2px; background:#1b2a41; }
+  .tl-item.done::after { background:#06b6d4; }
+  .tl-item:last-child::after { width:50%; left:50%; }
+  .tl-item:first-child::after { width:50%; }
+  .tl-item .t { font-size:10.5px; color:#7f95ad; }
+  .tl-item .d { font-size:11px; color:#c9d7e4; margin-top:3px; }
+  .footnote { text-align:center; color:#64788e; font-size:11.5px; margin-top:22px; line-height:1.7; }
+  .footnote a { color:#67e8f9; }
+  .cta { max-width:1080px; margin:26px auto 0; background:linear-gradient(135deg,#0f766e,#0e7490); border-radius:12px; padding:26px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .cta h2 { font-size:19px; color:#fff; margin-bottom:6px; }
+  .cta p { font-size:13px; color:#d1f2f5; line-height:1.5; }
+  .cta .btn2 { background:#fff; color:#0e7490; font-weight:700; font-size:14px; padding:12px 22px; border-radius:8px; white-space:nowrap; }
+  @media (max-width:720px){ .cards{grid-template-columns:1fr;} .layout{flex-direction:column;} .side{width:100%;} .cta{flex-direction:column;align-items:flex-start;} }
+</style>
+</head>
+<body>
+<div class="badge-bar"><strong>QAVIONT CONCEPT</strong> &nbsp;&middot;&nbsp; prepared exclusively for <strong>Excel Filtration Pvt Ltd</strong> &nbsp;&middot;&nbsp; interactive preview</div>
+<div class="stage">
+  <div class="caption">
+    <h1>Your client &amp; plant maintenance portal</h1>
+    What Excel's industrial clients could log in to every day (sample data shown)
+  </div>
+  <div class="chrome">
+    <span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span>
+    <div class="urlbar"><span class="lock">&#128274;</span> portal.excelfiltration.in/login</div>
+  </div>
+  <div class="app">
+    <div class="topnav">
+      <div class="brand"><div class="drop">&#128167;</div><div>EXCEL Client Portal<small>Water treatment plants &middot; service &amp; reports</small></div></div>
+      <div class="user"><span>Sunrise Beverages Pvt Ltd</span><div class="avatar">SB</div></div>
+    </div>
+    <div class="layout">
+      <div class="side">
+        <a class="on" href="#dash"><span class="ic">&#9632;</span> Dashboard</a>
+        <a href="#reports"><span class="ic">&#128196;</span> Water reports</a>
+        <a href="#maint"><span class="ic">&#128295;</span> Maintenance</a>
+        <a href="#parts"><span class="ic">&#128230;</span> Spares &amp; membranes</a>
+        <a href="#profile"><span class="ic">&#9881;</span> Plant profile</a>
+      </div>
+      <div class="main" id="dash">
+        <div class="greet">Good morning, Sunrise Beverages</div>
+        <div class="sub">Your 2 plants &middot; last water report 3 Oct 2026</div>
+        <div class="cards">
+          <div class="card"><div class="lbl">RO Plant A-1 &middot; Status</div><div class="val ok">Running</div><div class="meta ok">Output 9,850 LPH &middot; TDS 145 ppm</div></div>
+          <div class="card"><div class="lbl">Next service visit</div><div class="val">12 Oct</div><div class="meta info">Engineer assigned &middot; reminder sent</div></div>
+          <div class="card"><div class="lbl">Membrane life</div><div class="val warn">68%</div><div class="meta warn">Replacement due in ~6 weeks</div></div>
+        </div>
+        <div class="panel">
+          <h3>Latest water quality report <span>Plant A-1 &middot; 3 Oct 2026 &middot; <a class="btn" href="#">Download PDF</a></span></h3>
+          <table>
+            <tr><th>Parameter</th><th>Raw water</th><th>After RO</th><th>Standard</th><th>Status</th></tr>
+            <tr><td>TDS</td><td>840 ppm</td><td>145 ppm</td><td>&lt; 300 ppm</td><td><span class="chip ok">PASS</span></td></tr>
+            <tr><td>pH</td><td>7.2</td><td>6.9</td><td>6.5 &ndash; 8.5</td><td><span class="chip ok">PASS</span></td></tr>
+            <tr><td>Total hardness</td><td>310 mg/L</td><td>42 mg/L</td><td>&lt; 100 mg/L</td><td><span class="chip ok">PASS</span></td></tr>
+            <tr><td>Chlorides</td><td>142 mg/L</td><td>28 mg/L</td><td>&lt; 250 mg/L</td><td><span class="chip ok">PASS</span></td></tr>
+          </table>
+        </div>
+        <div class="panel" id="maint">
+          <h3>Preventive maintenance plan <span>AMC contract &middot; active till Mar 2027</span></h3>
+          <div class="timeline">
+            <div class="tl-item done"><div class="t">SEP 14</div><div class="d">Filter change</div></div>
+            <div class="tl-item done"><div class="t">SEP 28</div><div class="d">Membrane CIP</div></div>
+            <div class="tl-item done"><div class="t">OCT 12</div><div class="d">Full service</div></div>
+            <div class="tl-item"><div class="t">NOV 10</div><div class="d">Filter change</div></div>
+            <div class="tl-item"><div class="t">DEC 08</div><div class="d">Membrane CIP</div></div>
+          </div>
+        </div>
+        <div class="panel" id="parts">
+          <h3>Spare part requests <span><a class="btn" href="#">+ Request part</a></span></h3>
+          <table>
+            <tr><th>Part</th><th>Plant</th><th>Requested</th><th>Status</th><th></th></tr>
+            <tr><td>5-micron filter cartridges (10)</td><td>A-1</td><td>28 Sep</td><td><span class="chip ok">Delivered 1 Oct</span></td><td><a class="btn" href="#">Invoice</a></td></tr>
+            <tr><td>RO membrane 8040 HR</td><td>A-1</td><td>2 Oct</td><td><span class="chip info">Dispatched &middot; ETA 6 Oct</span></td><td><a class="btn" href="#">Track</a></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cta">
+    <div>
+      <h2>Like what you see?</h2>
+      <p>This is a working concept built for Excel Filtration. Every client, every plant, every report - one login. We can build and host this for you end to end.</p>
+    </div>
+    <div class="btn2">QAVIONT &middot; Build it with us</div>
+  </div>
+  <div class="footnote">
+    Concept prepared by <strong>QAVIONT</strong> &middot; Design, development &amp; automation for growing businesses<br>
+    Sample data for illustration &middot; <a href="https://qaviont-droid.github.io/portfolio/">See more of our work</a> &middot; qaviont@gmail.com
+  </div>
+</div>
+</body>
+</html>
