@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept for Jas Enterprise - Jas Enterprise's modern website</title><style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:-apple-system,'Segoe UI',Arial,Helvetica,sans-serif; background:#eef2f7; color:#1c2733; }
+  .badge-bar { background:linear-gradient(90deg,#b45309,#7c2d12); color:#fff; text-align:center; padding:10px 16px; font-size:13px; }
+  .stage { max-width:1080px; margin:0 auto; padding:28px 20px 60px; }
+  .caption { text-align:center; color:#5b6b7b; font-size:13px; margin-bottom:18px; }
+  .caption h1 { color:#0f2743; font-size:22px; margin-bottom:6px; }
+  .chrome { background:#dfe6ee; border-radius:12px 12px 0 0; padding:10px 14px; display:flex; align-items:center; gap:10px; border:1px solid #cdd8e3; border-bottom:0; }
+  .dot { width:11px; height:11px; border-radius:50%; }
+  .urlbar { flex:1; background:#fff; border-radius:8px; padding:7px 14px; font-size:12.5px; color:#5b6b7b; display:flex; align-items:center; gap:8px; }
+  .app { background:#fff; border:1px solid #cdd8e3; border-top:0; border-radius:0 0 12px 12px; overflow:hidden; }
+  .topnav { background:#fff; padding:16px 26px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eef1f5; }
+  .brand { display:flex; align-items:center; gap:10px; font-weight:800; font-size:16px; color:#0f2743; letter-spacing:.5px; }
+  .brand .drop { width:28px; height:28px; border-radius:7px; background:linear-gradient(135deg,#b45309,#7c2d12); display:flex; align-items:center; justify-content:center; font-size:14px; }
+  .navlinks { display:flex; gap:22px; font-size:13px; color:#5b6b7b; }
+  .navbtn { background:#b45309; color:#fff; font-size:12.5px; font-weight:700; padding:8px 16px; border-radius:7px; }
+  .hero { padding:34px 26px 26px; background:linear-gradient(180deg,#f7fafc,#fff); }
+  .hero h2 { font-size:24px; color:#0f2743; margin-bottom:8px; }
+  .hero p { font-size:14px; color:#5b6b7b; line-height:1.6; margin-bottom:16px; }
+  .row { display:flex; gap:14px; align-items:stretch; }
+  .videobox { flex:1.2; background:#0f1b30; border-radius:10px; display:flex; align-items:center; justify-content:center; min-height:150px; color:#9fb3c8; font-size:12.5px; }
+  .play { width:44px; height:44px; border-radius:50%; background:#b45309; display:flex; align-items:center; justify-content:center; color:#fff; font-size:16px; margin:0 auto 8px; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:0 26px 18px; }
+  .card { background:#f7fafc; border:1px solid #e4e9ee; border-radius:10px; padding:14px 16px; }
+  .card .lbl { font-size:11px; color:#7f95ad; letter-spacing:.6px; text-transform:uppercase; margin-bottom:6px; }
+  .card .val { font-size:15px; font-weight:700; color:#0f2743; line-height:1.4; }
+  .card .meta { font-size:11px; margin-top:5px; color:#5b6b7b; }
+  .panel { background:#fff; border:1px solid #e4e9ee; border-radius:10px; padding:16px 18px; margin:0 26px 14px; }
+  .panel h3 { font-size:13.5px; color:#0f2743; margin-bottom:12px; }
+  .panel h3 span { float:right; font-size:11px; color:#7f95ad; font-weight:400; }
+  table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  th { text-align:left; color:#7f95ad; font-weight:600; padding:8px 10px; border-bottom:1px solid #e4e9ee; font-size:11px; text-transform:uppercase; }
+  td { padding:9px 10px; border-bottom:1px solid #f0f3f6; color:#1c2733; }
+  tr:last-child td { border-bottom:0; }
+  .btn { display:inline-block; background:#b45309; color:#fff; font-size:11.5px; font-weight:700; padding:5px 12px; border-radius:6px; }
+  .chip { display:inline-block; padding:2px 9px; border-radius:20px; font-size:10.5px; font-weight:600; background:#e8f7ef; color:#059669; }
+  .darkchip { background:#0f1b30; border-radius:10px; padding:16px; color:#c9d7e4; font-size:12.5px; line-height:1.8; }
+  .darkchip strong { color:#fff; }
+  .darkchip .btn { margin-top:8px; }
+  .formrow { display:flex; gap:12px; margin-bottom:12px; }
+  .field { flex:1; background:#f7fafc; border:1px solid #e4e9ee; border-radius:8px; padding:10px 12px; }
+  .field .f1 { font-size:10.5px; color:#7f95ad; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
+  .field .f2 { font-size:13.5px; color:#0f2743; font-weight:600; }
+  .field .f2::after { content:' \25BE'; color:#7f95ad; font-size:11px; }
+  .cta { max-width:1080px; margin:26px auto 0; background:linear-gradient(135deg,#b45309,#7c2d12); border-radius:12px; padding:26px 28px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .cta h2 { font-size:19px; color:#fff; margin-bottom:6px; }
+  .cta p { font-size:13px; color:#eef7fa; line-height:1.5; }
+  .cta .btn2 { background:#fff; color:#0f2743; font-weight:700; font-size:14px; padding:12px 22px; border-radius:8px; white-space:nowrap; }
+  .footnote { text-align:center; color:#7f95ad; font-size:11.5px; margin-top:22px; line-height:1.7; }
+  .footnote a { color:#b45309; }
+  @media (max-width:720px){ .cards{grid-template-columns:1fr;} .row{flex-direction:column;} .cta{flex-direction:column;align-items:flex-start;} }
+</style></head>
+<body>
+<div class="badge-bar"><strong>QAVIONT CONCEPT</strong> &nbsp;&middot;&nbsp; prepared exclusively for <strong>Jas Enterprise</strong> &nbsp;&middot;&nbsp; interactive preview</div>
+<div class="stage">
+  <div class="caption"><h1>Jas Enterprise's modern website</h1>An export-ready site with a working enquiry flow (sample data shown)</div>
+  <div class="chrome"><span class="dot" style="background:#f87171"></span><span class="dot" style="background:#fbbf24"></span><span class="dot" style="background:#34d399"></span>
+    <div class="urlbar"><span>&#128274;</span> www.jasenterprise.com</div></div>
+  <div class="app">
+    <div class="topnav">
+      <div class="brand"><div class="drop">&#127870;</div>JAS ENTERPRISE</div>
+      <div class="navlinks">Snack lines &middot; Pulses &middot; Kitchen equip &middot; Export</div>
+      <div class="navbtn">Enquire</div>
+    </div>
+    <div class="hero" id="sec-hero">
+      <h2>Food processing machinery, exported worldwide</h2>
+      <p>Snack lines, dal mills and kitchen equipment - multi-decade manufacturing experience, trusted by buyers in 20+ countries.</p>
+      <div class="row">
+        <div class="videobox"><div style="text-align:center"><div class="play">&#9654;</div>Automatic namkeen line - 250 kg/hr</div></div>
+        <div><div class="formrow"><div class="field"><div class="f1">Your name</div><div class="f2">Rajesh Kumar</div></div>
+<div class="field"><div class="f1">Email</div><div class="f2">rajesh@example.com</div></div></div>
+<div class="formrow"><div class="field"><div class="f1">Machine interest</div><div class="f2">Namkeen line 250 kg/hr</div></div></div>
+<div style="text-align:right"><a class="btn" href="#" style="font-size:13px;padding:10px 22px">Send enquiry</a></div></div>
+      </div>
+    </div>
+    <div class="cards"><div class="card"><div class="lbl">SNACK LINES</div><div class="val">100&ndash;500 kg/hr</div><div class="meta">Namkeen, pellets, sev</div></div><div class="card"><div class="lbl">DAL MILLS</div><div class="val">2&ndash;5 TPD</div><div class="meta">Pulse processing lines</div></div><div class="card"><div class="lbl">EXPORTED TO</div><div class="val">20+ countries</div><div class="meta">Africa, SE Asia, Middle East</div></div></div>
+    <div class="panel" id="sec-a"><h3>Product categories <span>Full catalog with specs</span></h3><table><tr><th>Category</th><th>Capacity range</th><th>Export ready</th><th></th></tr><tr><td>Automatic namkeen line</td><td>100&ndash;500 kg/hr</td><td><span class='chip'>Yes</span></td><td><a class='btn' href='#'>View</a></td></tr><tr><td>Mini dal mill</td><td>2&ndash;5 TPD</td><td><span class='chip'>Yes</span></td><td><a class='btn' href='#'>View</a></td></tr><tr><td>Commercial kitchen equipment</td><td>Batch &amp; continuous</td><td><span class='chip'>Made to order</span></td><td><a class='btn' href='#'>View</a></td></tr></table></div>
+    <div class="panel" id="sec-b"><h3>Every enquiry reaches you <span>Enquiry #1241 &middot; received 2 Oct 2026</span></h3><div class="darkchip"><strong>What happens after a buyer clicks Send:</strong><br>
+&#10003; Delivered to your inbox instantly &nbsp; &#10003; Auto-reply with catalogue sent to the buyer &nbsp; &#10003; Follow-up reminder after 3 days<br>
+<a class="btn" href="#">Preview the enquiry flow</a></div></div>
+  </div>
+  <div class="cta"><div><h2>A website that never loses an enquiry</h2><p>A modern, export-ready site with a guaranteed-delivery enquiry flow - we would build it for Jas Enterprise end to end.</p></div><div class="btn2">QAVIONT &middot; Build it with us</div></div>
+  <div class="footnote">
+    Concept prepared by <strong>QAVIONT</strong> &middot; Design, development &amp; automation for growing businesses<br>
+    Sample data for illustration &middot; <a href="https://qaviont-droid.github.io/portfolio/">See more of our work</a> &middot; qaviont@gmail.com
+  </div>
+</div>
+</body></html>
